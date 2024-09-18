@@ -3,7 +3,10 @@ import { SocketContext } from './socket';
 import { io } from 'socket.io-client';
 
 function SocketProvider({ children }) {
-    const socket = useMemo(() => io(import.meta.env.VITE_SERVER_URL), []);
+    const socket = useMemo(() => io(import.meta.env.VITE_SERVER_URL,{
+        transports: ['websocket', 'polling'], // Match the transports
+        withCredentials: true
+    }), []);
 
     useEffect(() => {
         // Handle socket events
